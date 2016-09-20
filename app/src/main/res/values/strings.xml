@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Memory Game</string>
+    <string name="welcome_banner">Welcome to Memory Game!</string>
+    <string name="points_initial">Points: 0</string>
+    <string name="rules">There are two of each tile on the board.  To match the tiles turn over the first one, and then the second matching tile.  The game ends when all tiles are matched.</string>
+    <string name="rulesBanner">Rules:</string>
+    <string name="new_game_message">Would you like to continue your previous game?</string>
+    <string name="continue_game">Continue</string>
+    <string name="new_game">New Game</string>
+    <string name="new_game_title">Continue?</string>
+</resources>

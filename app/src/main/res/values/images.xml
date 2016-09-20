@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="images">
+        <item name="fruits1">@drawable/fruits1</item>
+        <item name="fruits2">@drawable/fruits2</item>
+        <item name="fruits3">@drawable/fruits3</item>
+        <item name="fruits4">@drawable/fruits4</item>
+        <item name="fruits5">@drawable/fruits5</item>
+        <item name="fruits6">@drawable/fruits6</item>
+        <item name="fruits7">@drawable/fruits7</item>
+        <item name="fruits8">@drawable/fruits8</item>
+        <item name="fruits9">@drawable/fruits9</item>
+        <item name="fruits10">@drawable/fruits10</item>
+    </array>
+</resources>
