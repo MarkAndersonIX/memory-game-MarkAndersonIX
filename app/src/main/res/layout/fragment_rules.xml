@@ -4,10 +4,44 @@
     android:layout_height="match_parent"
     tools:context="com.markandersonix.memorygame.RulesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:background="#000000">
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+            <Button
+                android:text="X"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/closerules"
+                android:textColor="#ffffff"
+                android:background="#000000"/>
+
+        </LinearLayout>
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/rulesBanner"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ffffff" />
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/rules"
+        android:id="@+id/textView"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:textColor="#ffffff" />
+    </LinearLayout>
 </FrameLayout>

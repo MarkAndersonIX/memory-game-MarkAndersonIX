@@ -20,6 +20,7 @@
         android:textSize="25dp"
         android:layout_weight="1"
         android:textColor="#ffffff" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,14 +36,12 @@
             android:text="Play"
             android:textSize="20dp"
             android:onClick="startGame" />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:padding="40dp"
-            android:id="@+id/rulesButton"
-            android:text="Rules"
-            android:textSize="20dp"
-            android:onClick="showRules" />
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:id="@+id/rulesframe">
+    </FrameLayout>
 </LinearLayout>

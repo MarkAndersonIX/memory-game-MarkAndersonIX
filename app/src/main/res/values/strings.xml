@@ -8,4 +8,7 @@
     <string name="continue_game">Continue</string>
     <string name="new_game">New Game</string>
     <string name="new_game_title">Continue?</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

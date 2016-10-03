@@ -11,6 +11,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,10 +23,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.nineoldandroids.animation.Animator;
+
+import butterknife.BindView;
 
 public class GameActivity extends AppCompatActivity {
     ArrayList<ImageButton> buttons;
@@ -35,6 +45,7 @@ public class GameActivity extends AppCompatActivity {
     int guessButton1 = 0;
     int guessButton2 = 0;
     int points = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +61,7 @@ public class GameActivity extends AppCompatActivity {
             points = prefs.getInt("points",0);
         }
         if(tileMapString != "empty" && tileMapString != "{}" && points > 0 && points < 10){
-            TextView pointsText = (TextView)findViewById(R.id.pointsText);
+            TextView pointsText = (TextView) findViewById(R.id.pointsText);
             pointsText.setText("Points: "+points);
             buttons = getButtons();
             try {
@@ -98,6 +109,24 @@ public class GameActivity extends AppCompatActivity {
             setBoard();
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_gameactivity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_newgame){
+            setBoard();
+        }else if(item.getItemId() == R.id.action_shuffle){
+            shuffleBoard();
+        }
+        return true;
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
@@ -169,6 +198,8 @@ public class GameActivity extends AppCompatActivity {
     }
     protected void setBoard(){
         points = 0;
+        TextView pointsText = (TextView) findViewById(R.id.pointsText);
+        pointsText.setText("Points: "+points);
         buttons = getButtons();
         Resources res = getResources();
         TypedArray images = getResources().obtainTypedArray(R.array.images);
@@ -181,8 +212,33 @@ public class GameActivity extends AppCompatActivity {
                 tileMap.put(Integer.toString(buttons.get(buttonNumber).getId()),
                         images.getResourceId(i,0));
                 buttons.get(buttonNumber).setVisibility(View.VISIBLE);
+                buttons.get(buttonNumber).setImageResource(R.drawable.cardback);
                 buttons.remove(buttonNumber);
             }
+        }
+    }
+
+    protected void shuffleBoard(){
+        ArrayList<ImageButton> buttons = getButtons();
+        ArrayList<Integer> visibleImages = new ArrayList<>();
+        clearedTiles.clear();
+        for(ImageButton btn: buttons){
+            btn.setImageResource(R.drawable.cardback);
+            if(btn.getVisibility() == View.VISIBLE){
+                visibleImages.add(tileMap.get(Integer.toString(btn.getId())));
+            }
+        }
+        Collections.shuffle(visibleImages);
+        for(Integer img: visibleImages){
+            if(!buttons.isEmpty()){
+                buttons.get(0).setVisibility(View.VISIBLE);
+                tileMap.put(Integer.toString(buttons.get(0).getId()),img);
+                buttons.remove(0);
+            }
+        }
+        for(ImageButton btn: buttons){
+            btn.setVisibility(View.INVISIBLE);
+            clearedTiles.add(btn.getId());
         }
     }
 
@@ -191,6 +247,7 @@ public class GameActivity extends AppCompatActivity {
             ImageButton button = (ImageButton) view;
             Resources res = getResources();
             button.setImageResource(tileMap.get(Integer.toString(button.getId())));
+            YoYo.with(Techniques.FlipInX).duration(1000).playOn(button);
             Log.e("Tilemap: ",""+Integer.toString(button.getId()));
             if(guessButton1 == 0){
                 guessButton1 = button.getId();
@@ -215,7 +272,7 @@ public class GameActivity extends AppCompatActivity {
                             clearedTiles.add(btn1.getId());
                             clearedTiles.add(btn2.getId());
                             points++;
-                            TextView pointsText = (TextView)findViewById(R.id.pointsText);
+                            TextView pointsText = (TextView) findViewById(R.id.pointsText);
                             pointsText.setText("Points: "+ points);
                             if(points == 10){
                                 Toast toast = Toast.makeText(getApplicationContext(),"You've matched all the tiles!", Toast.LENGTH_SHORT);
@@ -223,13 +280,13 @@ public class GameActivity extends AppCompatActivity {
                                 setBoard();
                                 points = 0;
                                 tileMap.clear();
-
-                                Intent welcome = new Intent(getApplicationContext(), WelcomeActivity.class);
-                                startActivity(welcome);
+                                finish();
                             }
                         }else{
                             btn1.setImageResource(R.drawable.cardback);
                             btn2.setImageResource(R.drawable.cardback);
+                            YoYo.with(Techniques.FlipInX).duration(1000).playOn(btn1);
+                            YoYo.with(Techniques.FlipInX).duration(1000).playOn(btn2);
                         }
                         guessButton1 = 0;
                         guessButton2 = 0;
